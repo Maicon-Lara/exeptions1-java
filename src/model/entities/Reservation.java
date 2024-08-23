@@ -23,19 +23,17 @@ public class Reservation {
 
     // Métodos getters e setters para os atributos da classe Reservation
     public Integer getRoomNumber() {
-        return roomNumber; // Retorna o número do quarto
+        return roomNumber;
     }
 
     public void setRoomNumber(Integer roomNumber) {
-        this.roomNumber = roomNumber; // Define o número do quarto
+        this.roomNumber = roomNumber;
     }
-
     public Date getCheckIn() {
-        return checkIn; // Retorna a data de check-in
+        return checkIn;
     }
-
     public Date getCheckOut() {
-        return checkOut; // Retorna a data de check-out
+        return checkOut;
     }
 
     // Método para calcular a duração da reserva em dias
