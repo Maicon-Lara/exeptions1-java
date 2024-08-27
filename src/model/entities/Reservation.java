@@ -6,22 +6,18 @@ import java.util.concurrent.TimeUnit;
 
 public class Reservation {
 
-    // Atributos da classe Reservation
-    private Integer roomNumber; 
-    private Date checkIn; 
-    private Date checkOut; 
+    private Integer roomNumber;
+    private Date checkIn;
+    private Date checkOut;
 
-    // Cria um objeto SimpleDateFormat para formatar as datas de check-in e check-out
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    // Construtor da classe Reservation
     public Reservation(Integer roomNumber, Date checkIn, Date checkOut) {
-        this.roomNumber = roomNumber; // Atribui o número do quarto ao atributo roomNumber
-        this.checkIn = checkIn; // Atribui a data de check-in ao atributo checkIn
-        this.checkOut = checkOut; // Atribui a data de check-out ao atributo checkOut
+        this.roomNumber = roomNumber;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
     }
 
-    // Métodos getters e setters para os atributos da classe Reservation
     public Integer getRoomNumber() {
         return roomNumber;
     }
@@ -29,26 +25,33 @@ public class Reservation {
     public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
     }
+
     public Date getCheckIn() {
         return checkIn;
     }
+
     public Date getCheckOut() {
         return checkOut;
     }
 
-    // Método para calcular a duração da reserva em dias
     public long duration() {
-        long diff = checkOut.getTime() - checkIn.getTime(); // Calcula a diferença de tempo entre check-out e check-in em milissegundos
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // Converte a diferença de tempo de milissegundos para dias e retorna o resultado
+        long diff = checkOut.getTime() - checkIn.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    // Método para atualizar as datas de check-in e check-out da reserva
-    public void updateDates(Date checkIn, Date checkOut) {
-        this.checkIn = checkIn; // Atribui a nova data de check-in ao atributo checkIn
-        this.checkOut = checkOut; // Atribui a nova data de check-out ao atributo checkOut
+    public String updateDates(Date checkIn, Date checkOut) {
+    	Date now = new Date();
+        if(checkIn.before(now) || checkOut.before(now)) {
+            return "Reservation dates for update must be future dates";
+        }
+        if (!checkOut.after(checkIn)) {
+            return "Check-out date must be after check-in date";
+        }
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        return null;
     }
 
-    // Sobrescreve o método ToString() para retornar uma string que representa a reserva em um formato legível
     @Override
     public String toString() {
         return "Room "
